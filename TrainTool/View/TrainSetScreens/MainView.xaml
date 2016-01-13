@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="TrainTool.View.TrainSetScreens.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:tss="clr-namespace:TrainTool.ViewModel.TrainSetScreens"
+             xmlns:h="clr-namespace:TrainTool.Helpers"
+             xmlns:cal="http://www.caliburnproject.org"
+             mc:Ignorable="d"
+             d:DesignHeight="800"
+             d:DesignWidth="600"
+             d:DataContext="{d:DesignInstance tss:MainViewModel}">
+    <AdornerDecorator>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto">
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0"
+                            Orientation="Horizontal"
+                            Margin="5, 5, 5, 20">
+                    <Label Content="Train Set Name:"
+                           FontSize="28"
+                           Foreground="{StaticResource HighlightFontBrush}"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top" />
+                    <Grid Margin="20, 0">
+                        <TextBox Text="{h:TextBoxBinding Path=TrainSetName}"
+                                 Height="41"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Top"
+                                 FontSize="28"
+                                 Width="391"
+                                 Visibility="{Binding IsEditingName, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <Label Content="{Binding TrainSetName}"
+                               Height="41"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               FontSize="28"
+                               Width="436"
+                               Visibility="{Binding IsEditingName, Converter={StaticResource InvertedBoolToVisibilityConverter}}" />
+                    </Grid>
+
+                    <Grid>
+                        <Button Content="{StaticResource RenameImage}"
+                                cal:Message.Attach="StartRenaming"
+                                ToolTip="Rename train set"
+                                Height="40"
+                                Width="40"
+                                Visibility="{Binding IsEditingName, Converter={StaticResource InvertedBoolToVisibilityConverter}}" />
+
+                        <StackPanel Orientation="Horizontal"
+                                    Visibility="{Binding IsEditingName, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <Button Content="{StaticResource OkImage}"
+                                    cal:Message.Attach="AcceptRenaming"
+                                    ToolTip="OK"
+                                    IsDefault="True"
+                                    Height="40"
+                                    Width="40"
+                                    Margin="5, 0" />
+                            <Button Content="{StaticResource CancelImage}"
+                                    cal:Message.Attach="CancelRenaming"
+                                    ToolTip="Cancel"
+                                    IsCancel="True"
+                                    Height="40"
+                                    Width="40"
+                                    Margin="5, 0" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+                <ItemsControl x:Name="Items" Grid.Row="1">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>
+        </ScrollViewer>
+    </AdornerDecorator>
+</UserControl>

@@ -1,0 +1,180 @@
+﻿<UserControl x:Class="TrainTool.View.TrainSetScreens.WaggonsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:tss="clr-namespace:TrainTool.ViewModel.TrainSetScreens"
+             xmlns:h="clr-namespace:TrainTool.Helpers"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance tss:WaggonsViewModel}">
+    <AdornerDecorator>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="300" />
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="DisplayName"
+                       Grid.Row="0"
+                       HorizontalAlignment="Center"
+                       FontSize="20"
+                       Foreground="{StaticResource HighlightFontBrush}" />
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <DockPanel Grid.Column="0"
+                           LastChildFill="True">
+                    <WrapPanel DockPanel.Dock="Top"
+                               Orientation="Horizontal"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Margin="5">
+                        <WrapPanel Orientation="Horizontal">
+                            <Button x:Name="AddWaggon"
+                                    Content="{StaticResource AddImage}"
+                                    ToolTip="Add Waggon"
+                                    Height="Auto"
+                                    Width="50"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Padding="2" />
+                            <Button x:Name="DeleteWaggon"
+                                    Content="{StaticResource DeleteImage}"
+                                    ToolTip="Delete Waggon"
+                                    Height="Auto"
+                                    Width="50"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Padding="2" />
+                        </WrapPanel>
+                        <WrapPanel Orientation="Horizontal">
+                            <Button x:Name="MoveWaggonUp"
+                                    Content="{StaticResource MoveUpImage}"
+                                    ToolTip="Move Waggon Up"
+                                    Height="Auto"
+                                    Width="50"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Padding="2" />
+                            <Button x:Name="MoveWaggonDown"
+                                    Content="{StaticResource MoveDownImage}"
+                                    ToolTip="Move Waggon Down"
+                                    Height="Auto"
+                                    Width="50"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Padding="2" />
+                        </WrapPanel>
+                    </WrapPanel>
+                    <ListBox ItemsSource="{Binding WaggonsView, Mode=OneWay}"
+                             DisplayMemberPath="Name"
+                             IsSynchronizedWithCurrentItem="True"
+                             Background="Transparent"
+                             HorizontalContentAlignment="Stretch"
+                             BorderThickness="0"
+                             SelectionChanged="ScrollIntoView" />
+                </DockPanel>
+
+                <ScrollViewer Grid.Column="1"
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto">
+                    <Grid Margin="10"
+                          Visibility="{Binding IsWaggonSelected, Converter={StaticResource BoolToHiddenVisibilityConverter}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="200" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="30" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0"
+                               Grid.Row="0"
+                               Content="Waggon Name"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               FontSize="13.333" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="0"
+                                 Text="{h:TextBoxBinding Path=WaggonName, ValidatesOnDataErrors=True}"
+                                 Height="25"
+                                 Margin="10,0"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Stretch"
+                                 FontSize="13.333" />
+                        <Label Grid.Column="0"
+                               Grid.Row="1"
+                               Content="Mass Empty [t]"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               FontSize="13.333" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="1"
+                                 Text="{h:TextBoxBinding Path=MassEmpty, ValidatesOnDataErrors=True}"
+                                 Height="25"
+                                 Margin="10,0"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Stretch"
+                                 FontSize="13.333" />
+                        <Label Grid.Column="0"
+                               Grid.Row="2"
+                               Content="Mass Full [t]"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               FontSize="13.333" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="2"
+                                 Text="{h:TextBoxBinding Path=MassFull, ValidatesOnDataErrors=True}"
+                                 Height="25"
+                                 Margin="10,0"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Stretch"
+                                 FontSize="13.333" />
+                        <Label Grid.Column="0"
+                               Grid.Row="3"
+                               Content="Max. Speed [km/h]"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               FontSize="13.333" />
+                        <TextBox Grid.Column="1"
+                                 Grid.Row="3"
+                                 Text="{h:TextBoxBinding Path=MaxSpeed, ValidatesOnDataErrors=True}"
+                                 Height="25"
+                                 Margin="10,0"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Stretch"
+                                 FontSize="13.333" />
+                        <Label Grid.Column="0"
+                               Grid.Row="4"
+                               Content="Length"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               FontSize="13.333" />
+                        <xctk:DoubleUpDown Grid.Column="1"
+                                            Grid.Row="4"
+                                            Value="{Binding Length, ValidatesOnDataErrors=True}"
+                                            FontSize="13.333"
+                                            FormatString="F2"
+                                            Increment="0.1"
+                                            Maximum="10.0"
+                                            Minimum="0.1"
+                                            Margin="5" />
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </AdornerDecorator>
+</UserControl>

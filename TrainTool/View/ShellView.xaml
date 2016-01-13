@@ -1,0 +1,129 @@
+﻿<Window x:Class="TrainTool.View.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:helpers="clr-namespace:TrainTool.Helpers"
+        xmlns:viewModel="clr-namespace:TrainTool.ViewModel"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Title="{Binding DisplayName}"
+        Height="720"
+        Width="1280"
+        mc:Ignorable="d"
+        d:DesignWidth="1280"
+        d:DesignHeight="720"
+        d:DataContext="{d:DesignInstance viewModel:ShellViewModel}">
+
+    <xctk:BusyIndicator IsBusy="{Binding IsBusy}"
+                        DisplayAfter="00:00:00.10">
+        <DockPanel LastChildFill="True">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem cal:Message.Attach="CreateNewTrainSetAsync"
+                              Header="_New"
+                              Icon="{StaticResource NewImage}"
+                              InputGestureText="Ctrl+N">
+                        <i:Interaction.Triggers>
+                            <helpers:InputBindingTrigger>
+                                <helpers:InputBindingTrigger.InputBinding>
+                                    <KeyBinding Modifiers="Ctrl"
+                                                Key="N" />
+                                </helpers:InputBindingTrigger.InputBinding>
+                                <cal:ActionMessage MethodName="CreateNewTrainSetAsync" />
+                            </helpers:InputBindingTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
+                    <MenuItem cal:Message.Attach="OpenTrainSetAsync"
+                              Header="_Open..."
+                              Icon="{StaticResource OpenImage}"
+                              InputGestureText="Ctrl+O">
+                        <i:Interaction.Triggers>
+                            <helpers:InputBindingTrigger>
+                                <helpers:InputBindingTrigger.InputBinding>
+                                    <KeyBinding Modifiers="Ctrl"
+                                                Key="O" />
+                                </helpers:InputBindingTrigger.InputBinding>
+                                <cal:ActionMessage MethodName="OpenTrainSetAsync" />
+                            </helpers:InputBindingTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
+                    <MenuItem cal:Message.Attach="SaveTrainSetAsync"
+                              Header="_Save"
+                              Icon="{StaticResource SaveImage}"
+                              InputGestureText="Ctrl+S">
+                        <i:Interaction.Triggers>
+                            <helpers:InputBindingTrigger>
+                                <helpers:InputBindingTrigger.InputBinding>
+                                    <KeyBinding Modifiers="Ctrl"
+                                                Key="S" />
+                                </helpers:InputBindingTrigger.InputBinding>
+                                <cal:ActionMessage MethodName="SaveTrainSetAsync" />
+                            </helpers:InputBindingTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
+                    <MenuItem cal:Message.Attach="SaveTrainSetAsAsync"
+                              Header="Save _As..."
+                              Icon="{StaticResource SaveAsImage}"
+                              InputGestureText="F6">
+                        <i:Interaction.Triggers>
+                            <helpers:InputBindingTrigger>
+                                <helpers:InputBindingTrigger.InputBinding>
+                                    <KeyBinding Key="F6" />
+                                </helpers:InputBindingTrigger.InputBinding>
+                                <cal:ActionMessage MethodName="SaveTrainSetAsAsync" />
+                            </helpers:InputBindingTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem cal:Message.Attach="Exit"
+                              Header="E_xit"
+                              InputGestureText="Alt+F4">
+                        <i:Interaction.Triggers>
+                            <helpers:InputBindingTrigger>
+                                <helpers:InputBindingTrigger.InputBinding>
+                                    <KeyBinding Modifiers="Alt"
+                                                Key="F4" />
+                                </helpers:InputBindingTrigger.InputBinding>
+                                <cal:ActionMessage MethodName="Exit" />
+                            </helpers:InputBindingTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="_Help">
+                    <MenuItem cal:Message.Attach="ShowAboutBox"
+                              Header="_About..."
+                              InputGestureText="F1">
+                        <i:Interaction.Triggers>
+                            <helpers:InputBindingTrigger>
+                                <helpers:InputBindingTrigger.InputBinding>
+                                    <KeyBinding Key="F1" />
+                                </helpers:InputBindingTrigger.InputBinding>
+                                <cal:ActionMessage MethodName="ShowAboutBox" />
+                            </helpers:InputBindingTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+
+            <ToolBar DockPanel.Dock="Top"
+                     HorizontalAlignment="Stretch">
+                <Button x:Name="CreateNewTrainSetAsync"
+                        Content="{StaticResource NewImage}"
+                        ToolTip="New" />
+                <Button x:Name="OpenTrainSetAsync"
+                        Content="{StaticResource OpenImage}"
+                        ToolTip="Open..." />
+                <Button x:Name="SaveTrainSetAsync"
+                        Content="{StaticResource SaveImage}"
+                        ToolTip="Save" />
+                <Button x:Name="SaveTrainSetAsAsync"
+                        Content="{StaticResource SaveAsImage}"
+                        ToolTip="Save As..." />
+            </ToolBar>
+
+            <ContentControl x:Name="ActiveItem" />
+        </DockPanel>
+    </xctk:BusyIndicator>
+</Window>

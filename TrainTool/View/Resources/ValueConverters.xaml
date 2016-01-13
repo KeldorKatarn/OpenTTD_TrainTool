@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vc="clr-namespace:TrainTool.View.ValueConverters">
+    <vc:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    <vc:BoolToVisibilityConverter x:Key="InvertedBoolToVisibilityConverter"
+                                  OnTrue="Collapsed"
+                                  OnFalse="Visible" />
+    <vc:BoolToVisibilityConverter x:Key="BoolToHiddenVisibilityConverter"
+                                  OnTrue="Visible"
+                                  OnFalse="Hidden" />
+    <vc:ButtonVisibilityConverter CheckOkButton="True" x:Key="OkButtonVisibilityConverter" />
+    <vc:ButtonVisibilityConverter CheckYesButton="True" x:Key="YesButtonVisibilityConverter" />
+    <vc:ButtonVisibilityConverter CheckNoButton="True" x:Key="NoButtonVisibilityConverter" />
+    <vc:ButtonVisibilityConverter CheckCancelButton="True" x:Key="CancelButtonVisibilityConverter" />
+</ResourceDictionary>
